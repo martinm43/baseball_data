@@ -1,3 +1,6 @@
+# Fork purpose
+To add historical abbreviations for teams so that the repository can take data from previous seasons.
+
 # baseball_data
 
 Ben Kite
