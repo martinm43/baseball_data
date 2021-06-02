@@ -31,9 +31,9 @@ def YearData(year, directory):
 
     dataBase = dict()
 
-    teams = ['ATL', 'ARI', 'BAL', 'BOS', 'CHC', 'CHW', 'CIN', 'CLE', 'COL', 'DET',
-             'KCR', 'HOU', 'LAA', 'LAD', 'MIA', 'MIL', 'MIN', 'NYM', 'NYY', 'OAK',
-             'PHI', 'PIT', 'SDP', 'SEA', 'SFG', 'STL', 'TBR', 'TEX', 'TOR', 'WSN']
+    teams = ['ANA','ATL', 'ARI', 'BAL', 'BOS','CAL', 'CHC', 'CHW', 'CIN', 'CLE', 'COL', 'DET', 'FLA',
+             'KCR', 'HOU', 'LAA', 'LAD', 'MIA', 'MIL', 'MIN', 'MON', 'NYM', 'NYY', 'OAK',
+             'PHI', 'PIT', 'SDP', 'SEA', 'SFG', 'STL', 'TBD','TBR', 'TEX', 'TOR', 'WSN']
 
     for tm in teams:
         try:
