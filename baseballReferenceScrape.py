@@ -34,7 +34,7 @@ def findTables(url):
 def pullTable(url, tableID):
     res = requests.get(url)
     #Debug printing for rate limiting troubleshooting
-    #print("Requests status code is: "+str(res.status_code))
+    print(url+": Requests status code is: "+str(res.status_code))
     ## Work around comments
     comm = re.compile("<!--|-->")
     soup = bs4.BeautifulSoup(comm.sub("", res.text), 'lxml')
