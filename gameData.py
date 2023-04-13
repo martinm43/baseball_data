@@ -38,6 +38,7 @@ def YearData(year, directory):
     for tm in teams:
         try:
             dataBase[tm] = pullGameData(tm, year)
+            print(tm, len(dataBase[tm]))
         except IndexError:
             pass
 
