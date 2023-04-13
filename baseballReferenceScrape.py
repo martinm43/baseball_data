@@ -33,6 +33,8 @@ def findTables(url):
 ## This function is used in all functions that do more complicated pulls.
 def pullTable(url, tableID):
     res = requests.get(url)
+    #Debug printing for rate limiting troubleshooting
+    #print("Requests status code is: "+str(res.status_code))
     ## Work around comments
     comm = re.compile("<!--|-->")
     soup = bs4.BeautifulSoup(comm.sub("", res.text), 'lxml')

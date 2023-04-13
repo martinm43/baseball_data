@@ -11,7 +11,7 @@ The output file will be named with the year followed by "Games.csv".
 
 """
 
-import pandas, os, argparse
+import pandas, os, argparse, time
 from baseballReferenceScrape import pullGameData
 
 parser = argparse.ArgumentParser(description=__doc__)
@@ -38,10 +38,15 @@ def YearData(year, directory):
     for tm in teams:
         try:
             dataBase[tm] = pullGameData(tm, year)
-            print(tm, len(dataBase[tm]))
         except IndexError:
             pass
+        time.sleep(10) #Pause is now required to avoid hitting stricter rate limiting.
 
+    #Debug printing
+    #for tm in teams:
+    #    print(tm)
+    #    print(dataBase[tm])
+        
     gameData = pandas.concat(dataBase)
 
     gameData.rename(columns = {"Tm" :"HomeTeam", 

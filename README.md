@@ -1,6 +1,11 @@
 # Fork purpose
 To add historical abbreviations for teams so that the repository can take data from previous seasons.
 
+As of 2023 additional work is now required to make this library compatible with the current version of baseball-reference, specifically to avoid rate limiting functionality which does not appear to be deterministic (i.e. waiting 10 seconds to poll between requests does not seem to work). Two options are currently being assessed:
+
+* Rewrite code and see if a fix in code exists
+* Use an alternate data source (mlb.com or potentially Fangraphs that is more data science friendly)
+ 
 # baseball_data
 
 Ben Kite
