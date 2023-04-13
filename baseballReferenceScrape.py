@@ -1,4 +1,5 @@
 ## Ben Kite
+## Error handling edits by Martin Miller, 2023-04-13
 
 import pandas, numpy
 import requests, bs4
@@ -34,7 +35,12 @@ def findTables(url):
 def pullTable(url, tableID):
     res = requests.get(url)
     #Debug printing for rate limiting troubleshooting
-    print(url+": Requests status code is: "+str(res.status_code))
+    if res.status_code == 404:
+        print(url+": Not found.")
+        return res.status_code
+    if res.status_code == 429:
+        print(url+": Rate limit exceeded, execution halting")
+        return res.status_code
     ## Work around comments
     comm = re.compile("<!--|-->")
     soup = bs4.BeautifulSoup(comm.sub("", res.text), 'lxml')
@@ -69,6 +75,8 @@ def pullGameData (team, year):
     url = "http://www.baseball-reference.com/teams/" + team + "/" + str(year) + "-schedule-scores.shtml"
     ## Let's funnel this work into the pullTable function
     dat = pullTable(url, "team_schedule")
+    if type(dat) is int:
+        return dat
     dates = dat["Date"]
     ndates = []
     for d in dates:

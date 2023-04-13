@@ -3,6 +3,7 @@
 ## Ben Kite
 ## 2017-02-16
 
+## Timer and error handling edits by Martin Miller, 2023-04-13
 """
 Finds all game played in the year that you specify and saves
 their results in a single .csv file.
@@ -36,11 +37,21 @@ def YearData(year, directory):
              'PHI', 'PIT', 'SDP', 'SEA', 'SFG', 'STL', 'TBD','TBR', 'TEX', 'TOR', 'WSN']
 
     for tm in teams:
-        try:
-            dataBase[tm] = pullGameData(tm, year)
-        except IndexError:
-            pass
-        time.sleep(10) #Pause is now required to avoid hitting stricter rate limiting.
+        gd = pullGameData(tm, year)
+        if type(gd) is int:
+            if gd == 404:
+                print(tm + " not found in database for year "+str(year))
+                pass
+            if gd == 429:
+                print("SR rate limit exceeded. Ending execution now.")
+                break
+        else: 
+            print("Team "+tm+" processed successfully for year "+str(year))
+            dataBase[tm] = gd
+
+        #Pause is now required to avoid hitting stricter rate limiting.
+        #Proven working value is 5
+        time.sleep(5) 
 
     #Debug printing
     #for tm in teams:

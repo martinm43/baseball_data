@@ -1,10 +1,7 @@
-# Fork purpose
-To add historical abbreviations for teams so that the repository can take data from previous seasons.
+# Fork changes from MAIN
+Added historical abbreviations for teams so that the repository can take data from previous seasons.
 
-As of 2023 additional work is now required to make this library compatible with the current version of baseball-reference, specifically to avoid rate limiting functionality which does not appear to be deterministic (i.e. waiting 10 seconds to poll between requests does not seem to work). Two options are currently being assessed:
-
-* Rewrite code and see if a fix in code exists
-* Use an alternate data source (mlb.com or potentially Fangraphs that is more data science friendly)
+Added a sleep delay to the gameData.py script that tries to take in entire years so that it doesn't trip the SR rate delay.
  
 # baseball_data
 
