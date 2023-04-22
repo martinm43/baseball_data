@@ -51,7 +51,7 @@ def YearData(year, directory):
 
         #Pause is now required to avoid hitting stricter rate limiting.
         #Proven working value is 5
-        time.sleep(5) 
+        #time.sleep(5) 
 
     #Debug printing
     #for tm in teams:

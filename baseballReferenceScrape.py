@@ -1,9 +1,23 @@
 ## Ben Kite
 ## Error handling edits by Martin Miller, 2023-04-13
 
+import functools
+import time
 import pandas, numpy
 import requests, bs4
 import re, os
+
+#rate limiting decorator attempt
+def sports_ref_limiter(rate):
+    def decorator_slow_down(func):
+        @functools.wraps(func)
+        def wrapper_slow_down(*args, **kwargs):
+            time.sleep(rate)
+            return func(*args, **kwargs)
+        return wrapper_slow_down
+    return decorator_slow_down
+limit_rate = 5 #wait five seconds between requests.
+
 
 ## This is the best place to get started.
 ## This function simply takes a url and provides the ids
@@ -71,6 +85,8 @@ def pullTable(url, tableID):
 ## 'ATL', 'ARI', 'BAL', 'BOS', 'CHC', 'CHW', 'CIN', 'CLE', 'COL', 'DET',
 ## 'KCR', 'HOU', 'LAA', 'LAD', 'MIA', 'MIL', 'MIN', 'NYM', 'NYY', 'OAK',
 ## 'PHI', 'PIT', 'SDP', 'SEA', 'SFG', 'STL', 'TBR', 'TEX', 'TOR', 'WSN'
+
+@sports_ref_limiter(limit_rate)
 def pullGameData (team, year):
     url = "http://www.baseball-reference.com/teams/" + team + "/" + str(year) + "-schedule-scores.shtml"
     ## Let's funnel this work into the pullTable function
