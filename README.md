@@ -2,6 +2,7 @@
 Added historical abbreviations for teams so that the repository can take data from previous seasons.
 
 Added a sleep delay to the gameData.py script that tries to take in entire years so that it doesn't trip the SR rate delay.
+To Do: Test how timed wait works with other scripts.
  
 # baseball_data
 
