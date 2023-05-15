@@ -57,30 +57,35 @@ for year in years:
         try:
             Batting = baseballReferenceScrape.pullPlayerData(t, year, "team_batting")
             Batting.to_csv(directory + "/" + t + "_" + str(year) + "_batting.csv", index = False, encoding = "utf-8")
+            print(f"Completed team {t} team_batting for year {year}")
         except IndexError:
             pass
     
         try:
             Pitching = baseballReferenceScrape.pullPlayerData(t, year, "team_pitching")
             Pitching.to_csv(directory + "/" + t + "_" + str(year) + "_pitching.csv", index = False, encoding = "utf-8")
+            print(f"Completed team {t} team_pitching for year {year}")
         except IndexError:
             pass
     
         try:        
             Fielding =baseballReferenceScrape.pullPlayerData(t, year, "standard_fielding")
             Fielding.to_csv(directory + "/" + t + "_" + str(year) + "_fielding.csv", index = False, encoding = "utf-8")
+            print(f"Completed team {t} team_standard_fielding for year {year}")
         except IndexError:
             pass
         
         try:        
             ValueBatting = baseballReferenceScrape.pullPlayerData(t, year, "players_value_batting")
             ValueBatting.to_csv(directory + "/" + t + "_" + str(year) + "_Valuebatting.csv", index = False, encoding = "utf-8")
+            print(f"Completed team {t} players_value_batting for year {year}")
         except IndexError:
             pass
     
         try:
             ValuePitching = baseballReferenceScrape.pullPlayerData(t, year, "players_value_pitching")
             ValuePitching.to_csv(directory + "/" + t + "_" + str(year) + "_Valuepitching.csv", index = False, encoding = "utf-8")
+            print(f"Completed team {t} players_value_pitching for year {year}")
         except IndexError:
             pass
 
