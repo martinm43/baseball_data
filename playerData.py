@@ -36,12 +36,13 @@ if team == "ALL":
     teams = ['ATL', 'ARI', 'BAL', 'BOS', 'CHC', 'CHW', 'CIN', 'CLE', 'COL', 'DET',
              'KCR', 'HOU', 'LAA', 'LAD', 'MIA', 'MIL', 'MIN', 'NYM', 'NYY', 'OAK',
              'PHI', 'PIT', 'SDP', 'SEA', 'SFG', 'STL', 'TBR', 'TEX', 'TOR', 'WSN'] 
-    checkold = True   
+    #This is functionality incorporated to add the legacy teams in. Let's test this later.
+    #checkold = True  - want to see what happens if variable is not assigned. 
     oldteams = ['ANA', 'BRO', 'CAL', 'FLA', 'KCA', 'MLN', 'MON', 'NYG', 'SLB', 'TBD', 'WSA']
     
 else:
     teams = [team]
-    checkold = False
+    #checkold = False
 
 ## Now a range of years is supported
 ys= year.split("-")
@@ -52,6 +53,7 @@ for y in ys: years.append(str(y))
  
 for year in years:      
     for t in teams:
+        print(f"Processing team {t} for year {year}")
         try:
             Batting = baseballReferenceScrape.pullPlayerData(t, year, "team_batting")
             Batting.to_csv(directory + "/" + t + "_" + str(year) + "_batting.csv", index = False, encoding = "utf-8")
@@ -82,6 +84,7 @@ for year in years:
         except IndexError:
             pass
 
+"""
 if checkold:
     for year in years:      
         for t in oldteams:
@@ -114,4 +117,4 @@ if checkold:
                 ValuePitching.to_csv(directory + "/" + t + "_" + str(year) + "_Valuepitching.csv", index = False, encoding = "utf-8")
             except IndexError:
                 pass
-
+"""

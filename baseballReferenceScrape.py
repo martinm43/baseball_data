@@ -16,7 +16,7 @@ def sports_ref_limiter(rate):
             return func(*args, **kwargs)
         return wrapper_slow_down
     return decorator_slow_down
-limit_rate = 5 #wait five seconds between requests.
+limit_rate = 4 #wait five seconds between requests.
 
 
 ## This is the best place to get started.
@@ -131,6 +131,8 @@ def pullGameData (team, year):
 ## "standard_fielding"
 ## "players_value_batting"
 ## "players_value_pitching"
+
+@sports_ref_limiter(limit_rate)
 def pullPlayerData (team, year, tabletype):
     url = "http://www.baseball-reference.com/teams/" + team + "/" + str(year) + ".shtml"
     data = pullTable(url, tabletype)
