@@ -1,11 +1,14 @@
 ## Ben Kite
 ## 2017-01-14
 
+## Requires debugging - MAM May 15 2023
+
+
 import pandas, numpy, requests, bs4, scipy.stats.stats, os
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
-from matplotlib._png import read_png
+#from matplotlib._png import read_png
 from matplotlib.cbook import get_sample_data
 from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
 
@@ -85,7 +88,7 @@ def recordGraber(league, year):
             ]
         datadict[d] = pandas.DataFrame(game_data)
     leagueData = pandas.concat(datadict)
-    
+    print(leagueData)    
     leagueData.rename(columns = {0 :"LongTeam", 1 :"Team", 2 :"Wins",
                               3 :"Losses", 4 :"WinPercentage", 5:"GB"}, inplace = True)
     
@@ -99,7 +102,6 @@ nlrec = recordGraber("NL", 2016)
 rec = pandas.concat([alrec, nlrec])
 wardat = pandas.merge(teamdat, rec, how = "left", on = "Team")
 wardat["Wins"] = pandas.to_numeric(wardat["Wins"])
-
 wardat["PWAR"] = wardat["PWAR"] * numpy.sum(wardat["WAR"])/numpy.sum(wardat["PWAR"])
 
 wardat["Int"] = 1
