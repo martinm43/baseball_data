@@ -403,5 +403,26 @@ def pullPitcherData (team, year):
     data = data[["Name", "LeftHanded", "Team", "Year"]]
     return(data)
 
-
+@sports_ref_limiter(limit_rate)
+def recordGraber(league, year):
+    url = "http://www.baseball-reference.com/leagues/" + league + "/" + str(year) + ".shtml"
+    res = requests.get(url)
+    soup = bs4.BeautifulSoup(res.text, features='lxml')
+    datadict = dict()
+    divisions = ["E", "C", "W"]
+    for d in divisions:
+        tableid = "standings_" + d
+        table = soup.findAll('table', id = tableid)
+        data_rows = table[0].findAll('tr')  
+        game_data = [[td.getText() for td in data_rows[i].findAll('td')]
+            for i in range(len(data_rows))
+            ]
+        datadict[d] = pandas.DataFrame(game_data)
+    leagueData = pandas.concat(datadict)
+    print(leagueData)    
+    leagueData.rename(columns = {0 :"LongTeam", 1 :"Team", 2 :"Wins",
+                              3 :"Losses", 4 :"WinPercentage", 5:"GB"}, inplace = True)
     
+    leagueData = leagueData[leagueData.Team.notnull()]
+    data = leagueData.reset_index(drop = True)
+    return(data)

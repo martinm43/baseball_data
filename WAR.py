@@ -8,9 +8,10 @@ import pandas, numpy, requests, bs4, scipy.stats.stats, os
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
-#from matplotlib._png import read_png
 from matplotlib.cbook import get_sample_data
 from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
+
+from baseballReferenceScrape import recordGraber
 
 datdir = "data/"
 ## If you want to run this on your own, you need to run the following commands
@@ -38,9 +39,6 @@ def WARdat (year):
     pdat = pdat.reset_index(drop = True)
     return(batdat, pdat)
 
-bdat16, pdat16 = WARdat(2016)
-bdat15, pdat15 = WARdat(2015)
-
 def WARAdd(currentyear, previousyear):
     unadjustedWAR = []
     for row in range(0, len(currentyear)):
@@ -51,6 +49,10 @@ def WARAdd(currentyear, previousyear):
     currentyear["PWAR"] = unadjustedWAR
     return(currentyear)
     
+
+bdat16, pdat16 = WARdat(2016)
+bdat15, pdat15 = WARdat(2015)
+
 bdat16 = WARAdd(bdat16, bdat15)
 pdat16 = WARAdd(pdat16, pdat15)
 
@@ -73,28 +75,6 @@ for t in teams:
 teamdat = pandas.concat(teamdat)
 teamdat = teamdat.reset_index(drop = True)
 
-def recordGraber(league, year):
-    url = "http://www.baseball-reference.com/leagues/" + league + "/" + str(year) + ".shtml"
-    res = requests.get(url)
-    soup = bs4.BeautifulSoup(res.text)
-    datadict = dict()
-    divisions = ["E", "C", "W"]
-    for d in divisions:
-        tableid = "standings_" + d
-        table = soup.findAll('table', id = tableid)
-        data_rows = table[0].findAll('tr')  
-        game_data = [[td.getText() for td in data_rows[i].findAll('td')]
-            for i in range(len(data_rows))
-            ]
-        datadict[d] = pandas.DataFrame(game_data)
-    leagueData = pandas.concat(datadict)
-    print(leagueData)    
-    leagueData.rename(columns = {0 :"LongTeam", 1 :"Team", 2 :"Wins",
-                              3 :"Losses", 4 :"WinPercentage", 5:"GB"}, inplace = True)
-    
-    leagueData = leagueData[leagueData.Team.notnull()]
-    data = leagueData.reset_index(drop = True)
-    return(data)
     
 alrec = recordGraber("AL", 2016)
 nlrec = recordGraber("NL", 2016)
