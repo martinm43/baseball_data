@@ -403,7 +403,6 @@ def pullPitcherData (team, year):
     data = data[["Name", "LeftHanded", "Team", "Year"]]
     return(data)
 
-@sports_ref_limiter(limit_rate)
 def recordGraber(league, year):
     url = "http://www.baseball-reference.com/leagues/" + league + "/" + str(year) + ".shtml"
     res = requests.get(url)

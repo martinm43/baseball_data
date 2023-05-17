@@ -1,9 +1,35 @@
-# Fork changes from MAIN
+# baseball_data, Martin's fork
+This library is forked from the original, with the original description retained below for posterity, for the purposes of keeping this library current for the end user and any other users who might desire to use this library.
+
+## Summary of Changes
 Added historical abbreviations for teams so that the repository can take data from previous seasons.
 
 Added a sleep delay to the gameData.py script that tries to take in entire years so that it doesn't trip the SR rate delay.
-To Do: Test how timed wait works with other scripts.
+
+### Summary of Scripts and their Status - May 17, 2023.
+**baseballReferenceScrape.py**
+Contains queries used to read BR data.
+**battingOverTime.py**
+To be tested
+**boxScores.py**
+To be tested
+**gameData.py**
+Script obtains an entire year of game data, is used to obtain the data for a current year as well. Is also
+coupled with a bash script to process multiple years at once. Works correctly.
+**playerData.py**
+Obtains data on a player level for an entire season for every team. Works correctly.
+**WAR.py**
+Calculates expected WAR for a season. To be tested.
+**WPA_pitching.py**
+To be tested.
+**WPA.py**
+To be tested.
+
+### To Do: 
+Test how timed wait works with other scripts.
 Incorporate 429 detection logic/formalize it for other scripts.
+
+
  
 # baseball_data
 
