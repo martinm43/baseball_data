@@ -7,21 +7,29 @@ Added historical abbreviations for teams so that the repository can take data fr
 Added a sleep delay to the gameData.py script that tries to take in entire years so that it doesn't trip the SR rate delay.
 
 ### Summary of Scripts and their Status - May 17, 2023.
+
 **baseballReferenceScrape.py**
 Contains queries used to read BR data.
+
 **battingOverTime.py**
 To be tested
+
 **boxScores.py**
 To be tested
+
 **gameData.py**
 Script obtains an entire year of game data, is used to obtain the data for a current year as well. Is also
 coupled with a bash script to process multiple years at once. Works correctly.
+
 **playerData.py**
 Obtains data on a player level for an entire season for every team. Works correctly.
+
 **WAR.py**
 Calculates expected WAR for a season. To be tested.
+
 **WPA_pitching.py**
 To be tested.
+
 **WPA.py**
 To be tested.
 
