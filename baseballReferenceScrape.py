@@ -16,7 +16,7 @@ def sports_ref_limiter(rate):
             return func(*args, **kwargs)
         return wrapper_slow_down
     return decorator_slow_down
-limit_rate = 4 #wait five seconds between requests.
+limit_rate = 6 #wait five seconds between requests. 4 caused timeout. Using 6 for sanity. 
 
 
 ## This is the best place to get started.
@@ -46,6 +46,7 @@ def findTables(url):
 ## Pulls a single table from a url provided by the user.
 ## The desired table should be specified by tableID.
 ## This function is used in all functions that do more complicated pulls.
+@sports_ref_limiter(limit_rate)
 def pullTable(url, tableID):
     res = requests.get(url)
     #Debug printing for rate limiting troubleshooting
@@ -86,7 +87,7 @@ def pullTable(url, tableID):
 ## 'KCR', 'HOU', 'LAA', 'LAD', 'MIA', 'MIL', 'MIN', 'NYM', 'NYY', 'OAK',
 ## 'PHI', 'PIT', 'SDP', 'SEA', 'SFG', 'STL', 'TBR', 'TEX', 'TOR', 'WSN'
 
-@sports_ref_limiter(limit_rate)
+@sports_ref_limiter(limit_rate) #- may not be necessary?
 def pullGameData (team, year):
     url = "http://www.baseball-reference.com/teams/" + team + "/" + str(year) + "-schedule-scores.shtml"
     ## Let's funnel this work into the pullTable function
@@ -96,6 +97,7 @@ def pullGameData (team, year):
     dates = dat["Date"]
     ndates = []
     for d in dates:
+        print(f"Processing {team} games on {d} in {year}")
         month = d.split(" ")[1]
         day = d.split(" ")[2]
         day = day.zfill(2)
@@ -163,7 +165,10 @@ def Quantify (x):
         if len(i) < 1:
             out.append(None)
         else:
-            out.append(float(i))
+            if "%" in i:
+                out.append(float(i.strip("%")))
+            else:
+                out.append(float(i))
     return(out)
 
 
@@ -250,12 +255,15 @@ def gameFinder (gameInfo):
 ## The directory argument is used to specify where to save the .csv
 ## If overwrite is True, an existing file with the same name will be overwritten.
 def pullBoxscores (team, year, directory, overwrite = True):
+    print(f"Processing {team} for {year}")
     if not os.path.exists(directory):
         os.makedirs(directory)
     if overwrite == False:
         if os.path.exists(directory + team + ".csv"):
             return("This already exists!")
     dat = pullGameData(team, year)
+    if type(dat) == int:
+        return(f"Code {dat} returned for {team} in {year}")
     DatDict = dict()
     for r in range(len(dat)):
         inputs = dat.loc[r]
@@ -418,7 +426,7 @@ def recordGraber(league, year):
             ]
         datadict[d] = pandas.DataFrame(game_data)
     leagueData = pandas.concat(datadict)
-    print(leagueData)    
+    #print(leagueData)    
     leagueData.rename(columns = {0 :"LongTeam", 1 :"Team", 2 :"Wins",
                               3 :"Losses", 4 :"WinPercentage", 5:"GB"}, inplace = True)
     
