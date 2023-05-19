@@ -15,7 +15,7 @@ Names for the output files list the team, the year, and then the table type.
 
 """
 
-import pandas, os, argparse
+import pandas, os, argparse, time
 import baseballReferenceScrape
 
 parser = argparse.ArgumentParser(description=__doc__)
@@ -24,6 +24,8 @@ parser.add_argument("--team", help="Name of team you want data for. Defaults to 
 parser.add_argument("--datdir", help="Name of directory where the data should be stored.  If the directory does not exist it will be created. Defaults to data/", default = "data/")
 
 args = parser.parse_args()
+
+start_time = time.perf_counter()
 
 year  = str(args.year)
 team = str(args.team)
@@ -88,6 +90,10 @@ for year in years:
             print(f"Completed team {t} players_value_pitching for year {year}")
         except IndexError:
             pass
+
+passed_time = time.perf_counter() - start_time
+print(f"Obtaining playerData data took {passed_time/60} min")
+
 
 """
 if checkold:

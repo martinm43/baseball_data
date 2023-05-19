@@ -42,4 +42,4 @@ datdir = str(args.datdir)
 ds.pullBoxscores(team, year, datdir, overwrite = True)
     
 passed_time = time.perf_counter() - start_time
-print(f"Obtaining data for {year} took {passed_time/60} min")
+print(f"Obtaining data took {passed_time/60} min")
