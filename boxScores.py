@@ -23,7 +23,7 @@ Running the following would give you all boxscores for the Yankees in 2010:
 $ python boxScores.py --team NYY --year 2010
 
 """
-
+import time
 import argparse
 import baseballReferenceScrape as ds
 
@@ -33,9 +33,13 @@ parser.add_argument("--year", help="Year of games to be collected")
 parser.add_argument("--datdir", help="Directory to save output", default = "data/")
 args = parser.parse_args()
 
+start_time = time.perf_counter()
+
 year  = str(args.year)
 team = str(args.team)
 datdir = str(args.datdir)
         
 ds.pullBoxscores(team, year, datdir, overwrite = True)
     
+passed_time = time.perf_counter() - start_time
+print(f"Obtaining data for {year} took {passed_time/60} min")

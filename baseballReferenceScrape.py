@@ -87,7 +87,7 @@ def pullTable(url, tableID):
 ## 'KCR', 'HOU', 'LAA', 'LAD', 'MIA', 'MIL', 'MIN', 'NYM', 'NYY', 'OAK',
 ## 'PHI', 'PIT', 'SDP', 'SEA', 'SFG', 'STL', 'TBR', 'TEX', 'TOR', 'WSN'
 
-@sports_ref_limiter(limit_rate) #- may not be necessary?
+# @sports_ref_limiter(limit_rate) #- may not be necessary?
 def pullGameData (team, year):
     url = "http://www.baseball-reference.com/teams/" + team + "/" + str(year) + "-schedule-scores.shtml"
     ## Let's funnel this work into the pullTable function
@@ -97,7 +97,6 @@ def pullGameData (team, year):
     dates = dat["Date"]
     ndates = []
     for d in dates:
-        print(f"Processing {team} games on {d} in {year}")
         month = d.split(" ")[1]
         day = d.split(" ")[2]
         day = day.zfill(2)
@@ -255,7 +254,7 @@ def gameFinder (gameInfo):
 ## The directory argument is used to specify where to save the .csv
 ## If overwrite is True, an existing file with the same name will be overwritten.
 def pullBoxscores (team, year, directory, overwrite = True):
-    print(f"Processing {team} for {year}")
+
     if not os.path.exists(directory):
         os.makedirs(directory)
     if overwrite == False:
@@ -275,6 +274,7 @@ def pullBoxscores (team, year, directory, overwrite = True):
     playerGameData.reset_index(inplace = True)
     playerGameData = playerGameData.rename(columns = {"level_0": "Game", "level_1": "BatPos"})
     playerGameData.to_csv(directory + team + "_" + str(year) + ".csv")
+    #Function should have some return value.
 
 
 ## This is an internal function to pullPlaybyPlay

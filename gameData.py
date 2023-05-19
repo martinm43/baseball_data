@@ -21,6 +21,8 @@ parser.add_argument("--datdir", help="Name of directory where the data should be
 
 args = parser.parse_args()
 
+start_time = time.perf_counter()
+
 year  = str(args.year)
 directory = str(args.datdir)
 
@@ -91,4 +93,5 @@ def YearData(year, directory):
 
 YearData(year, directory)
 
-
+passed_time = time.perf_counter() - start_time
+print(f"Obtaining data for {year} took {passed_time/60} min")
