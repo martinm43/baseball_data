@@ -304,7 +304,7 @@ def PlayByPlay (gameInfo):
         opp = gameInfo["Opp"]
         if team in teamNames:
             team = teamNames[team]
-    url = "http://www.baseball-reference.com/boxes/" + team + "/" + team + str(date) + ".shtml"
+    url = "http://www.baseball-reference.com/boxes/" + team + "/" + team + str(date) + "0"+ ".shtml"
     dat = pullTable(url, "play_by_play")
     dat = dat.loc[dat["Batter"].notnull()]
     dat = dat.loc[dat["Play Description"].notnull()]

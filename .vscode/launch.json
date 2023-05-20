@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "args": ["--team","NYM","--year","2019"], 
+            //"args": ["--team","NYM","--year","2019"],  -- used for others
             //"args": ["--year","2023"], - used for gameData
             "console": "integratedTerminal",
             "justMyCode": true
