@@ -38,6 +38,9 @@ def YearData(year, directory):
              'KCR', 'HOU', 'LAA', 'LAD', 'MIA', 'MIL', 'MIN', 'MON', 'NYM', 'NYY', 'OAK',
              'PHI', 'PIT', 'SDP', 'SEA', 'SFG', 'STL', 'TBD','TBR', 'TEX', 'TOR', 'WSN']
 
+    #Adding in pre-1977 teams.
+    teams.append(['WSA','SEP','KCA','MLN','WSH','BRO','NYG','PHA','SLB','BSN'])
+
     for tm in teams:
         gd = pullGameData(tm, year)
         if type(gd) is int:
