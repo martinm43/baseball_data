@@ -39,7 +39,7 @@ def YearData(year, directory):
              'PHI', 'PIT', 'SDP', 'SEA', 'SFG', 'STL', 'TBD','TBR', 'TEX', 'TOR', 'WSN']
 
     #Adding in pre-1977 teams.
-    teams.append(['WSA','SEP','KCA','MLN','WSH','BRO','NYG','PHA','SLB','BSN'])
+    #teams.append(['WSA','SEP','KCA','MLN','WSH','BRO','NYG','PHA','SLB','BSN']) --temp fix for 2024 updates.
 
     for tm in teams:
         gd = pullGameData(tm, year)
